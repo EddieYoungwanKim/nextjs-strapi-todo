@@ -1,0 +1,11 @@
+node_modules
+coverage
+storybook-static
+.next
+public
+out
+dist
+functions/dist
+functions/lib
+bazel*
+.bazel
