@@ -5,11 +5,11 @@ import Head from 'next/head'
 
 import styles from '../styles/Home.module.css'
 
+
 const Home: NextPage = () => {
-  useState('cool')
+  useState("cool");
 
-
-
+  // let a = 'asdf'
   return (
     <div className={styles.container}>
       <Head>
