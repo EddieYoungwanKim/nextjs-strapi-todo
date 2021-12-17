@@ -10,6 +10,20 @@ const Home: NextPage = () => {
 
   const a = 'asdf'
 
+  if (
+    a == 'asdlkfjaslkdfj' ||
+    a == 'asdlkfjaslkdfj' ||
+    a == 'asdlkfjaslkdfj' ||
+    a == 'asdlkfjaslkdfj' ||
+    a == 'asdlkfjaslkdfj' ||
+    a == 'asdlkfjaslkdfj' ||
+    a == 'asdlkfjaslkdfj' ||
+    a == 'asdlkfjaslkdfj' ||
+    a == 'asdlkfjaslkdfj' ||
+    a == 'asdlkfjaslkdfj'
+  )
+    console.log('good')
+
   return (
     <div className={styles.container}>
       <Head>
