@@ -1,15 +1,11 @@
 import { FC } from 'react'
 
-interface Props {
-  label?: string
-  onClick?: () => void
-  type?: 'button' | 'submit'
-}
+import MuiButton, { ButtonProps } from '@mui/material/Button'
 
-export const Button: FC<Props> = ({ label, onClick, type = 'button' }) => {
+export const Button: FC<ButtonProps> = ({ children, ...props }) => {
   return (
-    <button type={type} onClick={onClick}>
-      {label || 'default label'}
-    </button>
+    <MuiButton variant="contained" {...props}>
+      {children}
+    </MuiButton>
   )
 }

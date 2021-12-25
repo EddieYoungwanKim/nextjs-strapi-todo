@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+import { Box } from '@mui/material'
 import { SubmitHandler, useForm, useController } from 'react-hook-form'
 
 import { useTodo } from '../context/todo.context'
@@ -17,11 +18,7 @@ export const TodoForm: FC = () => {
     submitTodo(data.todo)
   }
 
-  return (
-    <>
-      <TodoFormPresenter onSubmitHandler={onSubmit} />
-    </>
-  )
+  return <TodoFormPresenter onSubmitHandler={onSubmit} />
 }
 
 /**
@@ -34,11 +31,11 @@ type TodoFormPresenterProps = {
   showError?: boolean
 }
 
-export const TodoFormPresenter: FC<TodoFormPresenterProps> = ({ onSubmitHandler, showError }) => {
+export const TodoFormPresenter: FC<TodoFormPresenterProps> = ({ onSubmitHandler }) => {
   const { control, handleSubmit, reset } = useForm<IFormInput>()
   const {
     field,
-    fieldState: { invalid, error },
+    // fieldState: { invalid, error },
   } = useController({
     name: 'todo',
     control,
@@ -52,13 +49,15 @@ export const TodoFormPresenter: FC<TodoFormPresenterProps> = ({ onSubmitHandler,
   }
 
   return (
-    <>
-      <div>Type Todos!</div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Input {...field} placeholder="todo" />
-        <Button type="submit" label="Add" />
-        <div>{showError && invalid && <>{error?.message}</>}</div>
-      </form>
-    </>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Box
+        sx={{
+          display: 'flex',
+        }}
+      >
+        <Input {...field} />
+        <Button type="submit">Add</Button>
+      </Box>
+    </form>
   )
 }

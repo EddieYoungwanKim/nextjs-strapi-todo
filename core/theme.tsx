@@ -1,11 +1,15 @@
 import { FC, useMemo, createContext, useState, useContext } from 'react'
 
-import { PaletteMode, ThemeProvider } from '@mui/material'
+import { PaletteMode, ThemeProvider, ThemeOptions } from '@mui/material'
+import { blue } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 
-export const getDesignTokens = (mode: PaletteMode) => ({
+export const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
   palette: {
     mode,
+    primary: {
+      main: blue[300],
+    },
   },
 })
 

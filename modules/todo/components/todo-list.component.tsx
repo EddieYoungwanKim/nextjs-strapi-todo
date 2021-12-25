@@ -1,49 +1,46 @@
-import { FC } from 'react'
+// import { useState } from 'react'
 
-import { useTodo } from '../context/todo.context'
-import { useTodoQuery } from '../hooks/todo-api.hook'
-import type { Todo } from '../machine/todo.machine'
+import DeleteIcon from '@mui/icons-material/Delete'
+import Checkbox from '@mui/material/Checkbox'
+import IconButton from '@mui/material/IconButton'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
 
-import { Button } from '@/modules/common/components/button.component'
+// import { useTodo } from '../context/todo.context'
+import { uppercase, useTodoQuery } from '../hooks/todo-api.hook'
+// import { Todo } from '../machine/todo.machine'
 
-const TodoItem: FC<{ todo: Todo }> = ({ todo }) => {
-  const { deleteTodo, doneTodo } = useTodo()
-
-  return (
-    <div>
-      {todo.completed ? (
-        <span style={{ textDecorationLine: 'line-through', textDecorationStyle: 'solid' }}>
-          {todo.title}
-        </span>
-      ) : (
-        <>{todo.title}</>
-      )}
-
-      <Button
-        label="delete"
-        onClick={() => {
-          deleteTodo(todo.id)
-        }}
-      />
-      <Button
-        label="done"
-        onClick={() => {
-          doneTodo(todo.id)
-        }}
-      />
-    </div>
-  )
-}
-
-export const TodoList = () => {
-  // const { todos } = useTodoContext()
-  const { data: todos } = useTodoQuery()
+export function TodoList() {
+  const { data: todos } = useTodoQuery({ select: uppercase })
+  const handleToggle = () => () => {
+    //
+  }
 
   return (
-    <>
-      {todos?.map((todo, i) => (
-        <TodoItem key={i} todo={todo} />
-      ))}
-    </>
+    <List>
+      {todos?.map((todo) => {
+        return (
+          <ListItem
+            key={todo.id}
+            secondaryAction={
+              <IconButton edge="end" aria-label="comments">
+                <DeleteIcon />
+              </IconButton>
+            }
+            disablePadding
+          >
+            <ListItemButton role={undefined} onClick={handleToggle()} dense>
+              <ListItemIcon>
+                <Checkbox edge="start" checked={todo.completed} tabIndex={-1} disableRipple />
+              </ListItemIcon>
+              <ListItemText primary={todo.title} />
+            </ListItemButton>
+          </ListItem>
+        )
+      })}
+    </List>
   )
 }

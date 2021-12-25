@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { Typography } from '@mui/material'
+
 import { TodoProvider } from '../context/todo.context'
 
 import { TodoForm } from './todo-form.component'
@@ -9,9 +11,11 @@ import { TodoList } from './todo-list.component'
 export const TodoContainer: FC = () => {
   return (
     <TodoProvider>
-      <h1>Todo</h1>
       <TodoTemplate>
-        <TodoForm></TodoForm>
+        <Typography variant="h5" align="center" color="text.primary" gutterBottom>
+          Add Todos
+        </Typography>
+        <TodoForm />
         <TodoList />
       </TodoTemplate>
     </TodoProvider>
