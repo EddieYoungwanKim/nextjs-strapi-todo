@@ -10,7 +10,7 @@ export const TodoProvider: FC = ({ children }) => {
   return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>
 }
 
-export const useTodoContext = () => {
+export const useTodo = () => {
   const ctx = useContext(TodoContext)
 
   if (!ctx) throw new Error('No TodoContext found. Did you forget to set it up?')

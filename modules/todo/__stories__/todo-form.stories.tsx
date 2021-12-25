@@ -3,7 +3,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { screen, userEvent } from '@storybook/testing-library'
 
-import { TodoFormPresenter } from './todo-form.component'
+import { TodoFormPresenter } from '../components/todo-form.component'
 
 export default {
   title: 'Example/TodoForm',

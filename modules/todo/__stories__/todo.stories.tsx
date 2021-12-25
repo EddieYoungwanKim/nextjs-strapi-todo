@@ -3,7 +3,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { rest } from 'msw'
 
-import { TodoContainer } from './todo.container'
+import { TodoContainer } from '../components/todo.container'
 
 export default {
   title: 'Example/TodoContainer',

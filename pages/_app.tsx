@@ -1,14 +1,22 @@
+import CssBaseline from '@mui/material/CssBaseline'
+import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
-import '../styles/globals.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
+
+import { ThemeProviderWithColorMode } from '@/core/theme'
 
 const queryClient = new QueryClient()
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProviderWithColorMode>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProviderWithColorMode>
+      </QueryClientProvider>
+    </SessionProvider>
   )
 }
 

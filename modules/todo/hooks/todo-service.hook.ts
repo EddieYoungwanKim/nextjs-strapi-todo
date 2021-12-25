@@ -2,14 +2,14 @@ import { useInterpret, useSelector } from '@xstate/react'
 
 import { todoMachine } from '../machine/todo.machine'
 
-import { useTodoApi } from './todo-api.hook'
+import { useTodoQuery } from './todo-api.hook'
 
 export const useTodoService = () => {
-  const { refetch: fetchTodosApi } = useTodoApi({ disable: true })
+  const { refetch: fetchTodos } = useTodoQuery({ disable: true })
   const service = useInterpret(todoMachine, {
     services: {
       fetchTodos: async () => {
-        const result = await fetchTodosApi()
+        const result = await fetchTodos()
 
         return result.data
       },
@@ -25,10 +25,7 @@ export const useTodoService = () => {
   const doneTodo = (id: string) => {
     send({ type: 'DONE', payload: id })
   }
-  const fetchTodos = () => {
-    send({ type: 'FETCH' })
-  }
   const todos = useSelector(service, (state) => state.context.todos)
 
-  return { submitTodo, deleteTodo, doneTodo, fetchTodos, todos }
+  return { submitTodo, deleteTodo, doneTodo, todos }
 }

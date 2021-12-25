@@ -16,15 +16,6 @@ export const todoMachine = createMachine<Context>(
     initial: 'idle',
     context: { todos: [] },
     states: {
-      // fetching: {
-      //   invoke: {
-      //     src: 'fetchTodos',
-      //     onDone: {
-      //       target: 'idle',
-      //       actions: 'setTodos',
-      //     },
-      //   },
-      // },
       idle: {
         on: {
           SUBMIT: {
@@ -36,9 +27,6 @@ export const todoMachine = createMachine<Context>(
           DONE: {
             actions: 'doneTodo',
           },
-          // FETCH: {
-          //   target: 'fetching',
-          // },
         },
       },
     },

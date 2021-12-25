@@ -2,23 +2,23 @@ import { FC } from 'react'
 
 import { SubmitHandler, useForm, useController } from 'react-hook-form'
 
-import { Button } from '../../../common/components/button/button.component'
-import { Input } from '../../../common/components/input/input.component'
-import { useTodoContext } from '../../context/todo.context'
+import { useTodo } from '../context/todo.context'
+
+import { Button } from '@/modules/common/components/button.component'
+import { Input } from '@/modules/common/components/input.component'
 
 interface IFormInput {
   todo: string
 }
 
 export const TodoForm: FC = () => {
-  const { submitTodo, fetchTodos } = useTodoContext()
+  const { submitTodo } = useTodo()
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     submitTodo(data.todo)
   }
 
   return (
     <>
-      <button onClick={fetchTodos}>refetch</button>
       <TodoFormPresenter onSubmitHandler={onSubmit} />
     </>
   )
