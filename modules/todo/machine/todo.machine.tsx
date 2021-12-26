@@ -1,10 +1,9 @@
-import { uuid } from 'uuidv4'
 import { assign, createMachine } from 'xstate'
 
 export type Todo = {
   id: string
   title: string
-  completed?: boolean
+  isComplete?: boolean
 }
 
 type Context = {
@@ -33,9 +32,9 @@ export const todoMachine = createMachine<Context>(
   },
   {
     actions: {
-      addTodo: assign({
-        todos: (ctx, event) => [{ id: uuid(), title: event.payload }, ...ctx.todos],
-      }),
+      // addTodo: assign({
+      //   todos: (ctx, event) => [{ id: uuid(), title: event.payload }, ...ctx.todos],
+      // }),
       deleteTodo: assign({
         todos: (ctx, event) => ctx.todos.filter((todo) => todo.id !== event.payload),
       }),
@@ -45,7 +44,7 @@ export const todoMachine = createMachine<Context>(
             if (event.payload === todo.id)
               return {
                 ...todo,
-                completed: !todo.completed,
+                isComplete: !todo.isComplete,
               }
             return { ...todo }
           }),

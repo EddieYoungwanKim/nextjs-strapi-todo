@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 import { SubmitHandler, useForm, useController } from 'react-hook-form'
 
 import { useTodo } from '../context/todo.context'
+import { useTodoMutate } from '../hooks/todo-api.hook'
 
 import { Button } from '@/modules/common/components/button.component'
 import { Input } from '@/modules/common/components/input.component'
@@ -32,6 +33,7 @@ type TodoFormPresenterProps = {
 }
 
 export const TodoFormPresenter: FC<TodoFormPresenterProps> = ({ onSubmitHandler }) => {
+  const { mutate } = useTodoMutate()
   const { control, handleSubmit, reset } = useForm<IFormInput>()
   const {
     field,
@@ -44,6 +46,11 @@ export const TodoFormPresenter: FC<TodoFormPresenterProps> = ({ onSubmitHandler 
   })
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     onSubmitHandler(data)
+
+    mutate({
+      title: data.todo,
+      isComplete: false,
+    })
 
     reset({ todo: '' })
   }

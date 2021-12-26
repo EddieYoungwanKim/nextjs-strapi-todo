@@ -10,13 +10,16 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 
 // import { useTodo } from '../context/todo.context'
-import { uppercase, useTodoQuery } from '../hooks/todo-api.hook'
+import { useTodoDelete, useTodoQuery, useTodoUpdate } from '../hooks/todo-api.hook'
+import { Todo } from '../machine/todo.machine'
 // import { Todo } from '../machine/todo.machine'
 
 export function TodoList() {
-  const { data: todos } = useTodoQuery({ select: uppercase })
-  const handleToggle = () => () => {
-    //
+  const { data: todos } = useTodoQuery()
+  const { mutate: deleteTodo } = useTodoDelete()
+  const { mutate: updateTodo } = useTodoUpdate()
+  const handleToggle = (todo: Partial<Todo>) => {
+    updateTodo(todo)
   }
 
   return (
@@ -26,17 +29,34 @@ export function TodoList() {
           <ListItem
             key={todo.id}
             secondaryAction={
-              <IconButton edge="end" aria-label="comments">
+              <IconButton
+                edge="end"
+                aria-label="comments"
+                onClick={() => {
+                  deleteTodo(todo.id)
+                }}
+              >
                 <DeleteIcon />
               </IconButton>
             }
             disablePadding
           >
-            <ListItemButton role={undefined} onClick={handleToggle()} dense>
+            <ListItemButton
+              role={undefined}
+              onClick={() => {
+                handleToggle({ id: todo.id, isComplete: !todo.attributes.isComplete })
+              }}
+              dense
+            >
               <ListItemIcon>
-                <Checkbox edge="start" checked={todo.completed} tabIndex={-1} disableRipple />
+                <Checkbox
+                  edge="start"
+                  checked={todo.attributes.isComplete}
+                  tabIndex={-1}
+                  disableRipple
+                />
               </ListItemIcon>
-              <ListItemText primary={todo.title} />
+              <ListItemText primary={todo.attributes.title} />
             </ListItemButton>
           </ListItem>
         )
