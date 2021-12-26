@@ -1,8 +1,9 @@
-import axios from 'axios'
 import { keyBy } from 'lodash'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 import { Todo } from '../machine/todo.machine'
+
+import { http } from '@/core/http'
 
 type ResponseData = {
   id: string
@@ -10,31 +11,26 @@ type ResponseData = {
 }
 
 const fetchTodos = async () => {
-  const { data } = await axios.get<{ data: ResponseData[] }>('http://localhost:1337/api/todos')
+  const { data } = await http.get<{ data: ResponseData[] }>('/todos')
 
   console.log('todo fetched')
 
   return data.data
 }
 const postTodo = async (todo: Omit<Todo, 'id'>) => {
-  const { data } = await axios.post<{ data: ResponseData }>('http://localhost:1337/api/todos', {
+  const { data } = await http.post<{ data: ResponseData }>('/todos', {
     data: todo,
   })
 
   return data.data
 }
 const deleteTodo = async (id: string) => {
-  const { data } = await axios.delete<{ data: ResponseData }>(
-    `http://localhost:1337/api/todos/${id}`
-  )
+  const { data } = await http.delete<{ data: ResponseData }>(`/todos/${id}`)
 
   return data.data
 }
 const updateTodo = async (todo: Partial<Todo>) => {
-  const { data } = await axios.put<{ data: ResponseData }>(
-    `http://localhost:1337/api/todos/${todo.id}`,
-    { data: todo }
-  )
+  const { data } = await http.put<{ data: ResponseData }>(`/todos/${todo.id}`, { data: todo })
 
   return data.data
 }
