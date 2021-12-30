@@ -6,8 +6,8 @@ import { SubmitHandler, useForm, useController } from 'react-hook-form'
 import { useTodo } from '../context/todo.context'
 import { useTodoMutate } from '../hooks/todo-api.hook'
 
-import { Button } from '@/modules/common/components/button.component'
-import { Input } from '@/modules/common/components/input.component'
+import { Button } from '@/lib/design-system/components/button.component'
+import { Input } from '@/lib/design-system/components/input.component'
 
 interface IFormInput {
   todo: string

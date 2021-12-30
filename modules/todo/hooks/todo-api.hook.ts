@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 import { Todo } from '../machine/todo.machine'
 
-import { http } from '@/core/http'
+import { http } from '@/lib/http'
 
 type ResponseData = {
   id: string

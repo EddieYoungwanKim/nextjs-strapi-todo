@@ -1,10 +1,18 @@
+import { ReactNode } from 'react'
+
 import type { NextPage } from 'next'
 
 import { TodoContainer } from '../modules/todo/components/todo.container'
 
-import { Layout } from '@/modules/common/components/layout.component'
+import { Layout } from '@/lib/design-system/components/layout.component'
 
-const Home: NextPage = () => {
+type AuthConfig = {
+  role: 'admin' | 'reader' | 'writer'
+  loading: ReactNode
+  redirectOnUnauthorized: string
+}
+
+const Home: NextPage & { auth: AuthConfig } = () => {
   return (
     <Layout>
       <TodoContainer />
@@ -13,3 +21,9 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+Home.auth = {
+  role: 'admin',
+  loading: <>Auth loading...</>,
+  redirectOnUnauthorized: '/login', // redirect to this url
+}

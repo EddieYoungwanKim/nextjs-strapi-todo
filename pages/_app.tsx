@@ -3,13 +3,13 @@ import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-import { ThemeProviderWithColorMode } from '@/core/theme'
+import { ThemeProviderWithColorMode } from '@/lib/theme'
 
 const queryClient = new QueryClient()
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={pageProps.session}>
       <QueryClientProvider client={queryClient}>
         <ThemeProviderWithColorMode>
           <CssBaseline />
